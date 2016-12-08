@@ -19,11 +19,11 @@ package logical_circuit
 import logical_circuit.Data
 import logical_circuit.Single
 
-class Const(override val output: Data<Value>) : Circuit {
+class Const(override val outputs: Data<Value>) : Circuit {
     companion object {
         val ONE = Const(Single(Value.One))
         val ZERO = Const(Single(Value.Zero))
     }
 
-    override fun toString(): String = this.output.toString()
+    override fun toString(): String = this.outputs.toString()
 }

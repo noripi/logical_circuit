@@ -16,7 +16,6 @@
  */
 package logical_circuit
 
-import logical_circuit.Data
 import main.toInt
 
 enum class Value(val value: Boolean) {
@@ -28,5 +27,8 @@ enum class Value(val value: Boolean) {
 }
 
 interface Circuit {
-    val output: Data<Value>
+    val outputs: Data<Value>
+
+    val output: Value
+        get() = this.outputs[0]
 }

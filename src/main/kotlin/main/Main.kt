@@ -1,8 +1,7 @@
 package main
 
 import logical_circuit.Const
-import logical_circuit.HalfAdder
-import logical_circuit.Xor
+import logical_circuit.FullAdder
 
 /**
  * Copyright (C) 2016 Retty, Inc.
@@ -22,8 +21,13 @@ import logical_circuit.Xor
  */
 
 fun main(args: Array<String>) {
-    println("HalfAdder(0, 0) = " + HalfAdder(Const.ZERO, Const.ZERO).output)
-    println("HalfAdder(1, 0) = " + HalfAdder(Const.ONE, Const.ZERO).output)
-    println("HalfAdder(0, 1) = " + HalfAdder(Const.ZERO, Const.ONE).output)
-    println("HalfAdder(1, 1) = " + HalfAdder(Const.ONE, Const.ONE).output)
+    println("FullAdder(0, 0, 0) = " + FullAdder(Const.ZERO, Const.ZERO, Const.ZERO))
+    println("FullAdder(0, 0, 1) = " + FullAdder(Const.ZERO, Const.ZERO, Const.ONE))
+    println("FullAdder(0, 1, 0) = " + FullAdder(Const.ZERO, Const.ONE, Const.ZERO))
+    println("FullAdder(0, 1, 1) = " + FullAdder(Const.ZERO, Const.ONE, Const.ONE))
+    println("FullAdder(1, 0, 0) = " + FullAdder(Const.ONE, Const.ZERO, Const.ZERO))
+    println("FullAdder(1, 0, 1) = " + FullAdder(Const.ONE, Const.ZERO, Const.ONE))
+    println("FullAdder(1, 1, 0) = " + FullAdder(Const.ONE, Const.ONE, Const.ZERO))
+    println("FullAdder(1, 1, 1) = " + FullAdder(Const.ONE, Const.ONE, Const.ONE))
 }
+

@@ -26,8 +26,8 @@ abstract class Data<out T>(vararg private val output: T) {
     }
 }
 
-class Single<out T>(first: T) : Data<T>(first)
-class Twins<out T>(first: T, second: T) : Data<T>(first, second)
-class Triplets<out T>(first: T, second: T, third: T) : Data<T>(first, second, third)
-class Quadruplets<out T>(first: T, second: T, third: T, fourth: T) : Data<T>(first, second, third,
+class Single<T>(first: T) : Data<T>(first)
+class Twins<T>(first: T, second: T) : Data<T>(first, second)
+class Triplets<T>(first: T, second: T, third: T) : Data<T>(first, second, third)
+class Quadruplets<T>(first: T, second: T, third: T, fourth: T) : Data<T>(first, second, third,
         fourth)
