@@ -1,9 +1,3 @@
-package main
-
-import logical_circuit.Const
-import logical_circuit.HalfAdder
-import logical_circuit.Xor
-
 /**
  * Copyright (C) 2016 Retty, Inc.
  *
@@ -20,10 +14,20 @@ import logical_circuit.Xor
  *
  * @author Noriyuki Ishida
  */
+package logical_circuit
 
-fun main(args: Array<String>) {
-    println("HalfAdder(0, 0) = " + HalfAdder(Const.ZERO, Const.ZERO).output)
-    println("HalfAdder(1, 0) = " + HalfAdder(Const.ONE, Const.ZERO).output)
-    println("HalfAdder(0, 1) = " + HalfAdder(Const.ZERO, Const.ONE).output)
-    println("HalfAdder(1, 1) = " + HalfAdder(Const.ONE, Const.ONE).output)
+abstract class Data<out T>(vararg private val output: T) {
+    override fun toString(): String {
+        return this.output.map { it.toString() }.joinToString(", ")
+    }
+
+    operator fun get(idx: Int): T {
+        return this.output[idx]
+    }
 }
+
+class Single<out T>(first: T) : Data<T>(first)
+class Twins<out T>(first: T, second: T) : Data<T>(first, second)
+class Triplets<out T>(first: T, second: T, third: T) : Data<T>(first, second, third)
+class Quadruplets<out T>(first: T, second: T, third: T, fourth: T) : Data<T>(first, second, third,
+        fourth)

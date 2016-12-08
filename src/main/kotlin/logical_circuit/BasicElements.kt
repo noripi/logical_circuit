@@ -23,7 +23,19 @@ package logical_circuit
  * 1 1 -> 0
  */
 class Nand(private val inputA: Circuit, private val inputB: Circuit) : Circuit {
-    override val output: Value = if (this.inputA.output.value && this.inputB.output.value) Value.Zero else Value.One
+    override val output: Data<Value>
+        get() {
+            if (inputA.output !is Single || inputB.output !is Single) throw UnsupportedOperationException()
+
+            val outputA: Single<Value> = inputA.output as Single
+            val outputB: Single<Value> = inputB.output as Single
+
+            return if (outputA[0] == Value.One && outputB[0] == Value.One) {
+                Single(Value.Zero)
+            } else {
+                Single(Value.One)
+            }
+        }
 }
 
 /**

@@ -16,7 +16,15 @@
  */
 package logical_circuit
 
-class HalfAdder(inputA: Circuit, inputB: Circuit) : CompoundCircuit(
-        And(inputA, inputB), // 桁上がり
-        Xor(inputA, inputB)
-)
+/**
+ * 0 0 -> 0 0
+ * 0 1 -> 0 1
+ * 1 0 -> 0 1
+ * 1 1 -> 1 0
+ */
+class HalfAdder(inputA: Circuit, inputB: Circuit) : Circuit {
+    override val output: Data<Value> = Twins(
+            And(inputA, inputB).output[0],
+            Xor(inputA, inputB).output[0]
+    )
+}

@@ -16,6 +16,7 @@
  */
 package logical_circuit
 
+import logical_circuit.Data
 import main.toInt
 
 enum class Value(val value: Boolean) {
@@ -27,13 +28,5 @@ enum class Value(val value: Boolean) {
 }
 
 interface Circuit {
-    val output: Value
-
-    fun asCompoundCircuit(): CompoundCircuit {
-        return object : CompoundCircuit(this) {}
-    }
-}
-
-abstract class CompoundCircuit(vararg circuits: Circuit) {
-    val outputs: List<Value> = circuits.map { it.output }
+    val output: Data<Value>
 }
