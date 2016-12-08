@@ -1,5 +1,8 @@
 package main
 
+import logical_circuit.FullAdder
+import logical_circuit.Value
+
 /**
  * Copyright (C) 2016 Retty, Inc.
  *
@@ -18,13 +21,13 @@ package main
  */
 
 fun main(args: Array<String>) {
-    //    println("FullAdder(0, 0, 0) = " + FullAdder(Const.ZERO, Const.ZERO, Const.ZERO))
-    //    println("FullAdder(0, 0, 1) = " + FullAdder(Const.ZERO, Const.ZERO, Const.ONE))
-    //    println("FullAdder(0, 1, 0) = " + FullAdder(Const.ZERO, Const.ONE, Const.ZERO))
-    //    println("FullAdder(0, 1, 1) = " + FullAdder(Const.ZERO, Const.ONE, Const.ONE))
-    //    println("FullAdder(1, 0, 0) = " + FullAdder(Const.ONE, Const.ZERO, Const.ZERO))
-    //    println("FullAdder(1, 0, 1) = " + FullAdder(Const.ONE, Const.ZERO, Const.ONE))
-    //    println("FullAdder(1, 1, 0) = " + FullAdder(Const.ONE, Const.ONE, Const.ZERO))
-    //    println("FullAdder(1, 1, 1) = " + FullAdder(Const.ONE, Const.ONE, Const.ONE))
+    for (i: Int in 0..1) {
+        for (j: Int in 0..1) {
+            for (k: Int in 0..1) {
+                println("FullAdder($i, $j, $k) = " + FullAdder(Value.valueOf(i),
+                        Value.valueOf(j), Value.valueOf(k)).outputs)
+            }
+        }
+    }
 }
 

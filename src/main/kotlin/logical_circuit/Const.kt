@@ -16,14 +16,21 @@
  */
 package logical_circuit
 
-import logical_circuit.Data
-import logical_circuit.Single
+import main.toInt
 
-class Const(override val outputs: Data<Value>) : Circuit {
+interface Constant
+
+enum class Value(val value: Boolean) : Circuit, Constant {
+    Zero(false), One(true), ;
+
     companion object {
-        val ONE = Const(Single(Value.One))
-        val ZERO = Const(Single(Value.Zero))
+        fun valueOf(value: Int): Value {
+            return if (value == 0) Zero else One
+        }
     }
 
-    override fun toString(): String = this.outputs.toString()
+    override val outputs: Data<Circuit>
+        get() = throw UnsupportedOperationException()
+
+    override fun toString(): String = this.value.toInt().toString()
 }

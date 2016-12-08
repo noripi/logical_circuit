@@ -23,7 +23,7 @@ package logical_circuit
  * 1 1 -> 1 0
  */
 class HalfAdder(inputA: Circuit, inputB: Circuit) : Circuit {
-    override val outputs: Data<Value> = Twins(
+    override val outputs: Data<Circuit> = Twins(
             And(inputA, inputB).output,
             Xor(inputA, inputB).output
     )
@@ -41,10 +41,11 @@ class HalfAdder(inputA: Circuit, inputB: Circuit) : Circuit {
  * 1 1 1 -> 1 1
  */
 class FullAdder(inputA: Circuit, inputB: Circuit, x: Circuit) : Circuit {
-    override val outputs: Data<Value> = HalfAdder(inputA, inputB).outputs.let {
-        val (carry, sum) = it as Twins
-        HalfAdder(sum, x)
-
-        return@let Hal
+    override val outputs: Data<Circuit> = HalfAdder(inputA, inputB).outputs.let let1@ {
+        val (carry1, sum1) = it as Twins
+        return@let1 HalfAdder(sum1, x).outputs.let let2@ {
+            val (carry2, sum2) = it as Twins
+            return@let2 Twins(Or(carry1, carry2).output, sum2)
+        }
     }
 }

@@ -25,12 +25,13 @@ package logical_circuit
 class Nand(private val inputA: Circuit, private val inputB: Circuit) : Circuit {
     override val outputs: Data<Value>
         get() {
-            if (inputA.outputs !is Single || inputB.outputs !is Single) throw UnsupportedOperationException()
+            var outputA: Circuit = this.inputA
+            while (outputA !is Constant) outputA = outputA.output
 
-            val outputA: Single<Value> = inputA.outputs as Single
-            val outputB: Single<Value> = inputB.outputs as Single
+            var outputB: Circuit = this.inputB
+            while (outputB !is Constant) outputB = outputB.output
 
-            return if (outputA[0] == Value.One && outputB[0] == Value.One) {
+            return if (outputA == Value.One && outputB == Value.One) {
                 Single(Value.Zero)
             } else {
                 Single(Value.One)

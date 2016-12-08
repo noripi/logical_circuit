@@ -16,19 +16,9 @@
  */
 package logical_circuit
 
-import main.toInt
-
-enum class Value(val value: Boolean) {
-    Zero(false), One(true), ;
-
-    override fun toString(): String {
-        return this.value.toInt().toString();
-    }
-}
-
 interface Circuit {
-    val outputs: Data<Value>
+    val outputs: Data<Circuit>
 
-    val output: Value
+    val output: Circuit
         get() = this.outputs[0]
 }
