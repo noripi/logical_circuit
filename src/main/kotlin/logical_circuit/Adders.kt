@@ -28,3 +28,23 @@ class HalfAdder(inputA: Circuit, inputB: Circuit) : Circuit {
             Xor(inputA, inputB).output
     )
 }
+
+
+/**
+ * 0 0 0 -> 0 0
+ * 0 0 1 -> 0 1
+ * 0 1 0 -> 0 1
+ * 0 1 1 -> 1 0
+ * 1 0 0 -> 0 1
+ * 1 0 1 -> 1 0
+ * 1 1 0 -> 1 0
+ * 1 1 1 -> 1 1
+ */
+class FullAdder(inputA: Circuit, inputB: Circuit, x: Circuit) : Circuit {
+    override val outputs: Data<Value> = HalfAdder(inputA, inputB).outputs.let {
+        val (carry, sum) = it as Twins
+        HalfAdder(sum, x)
+
+        return@let Hal
+    }
+}

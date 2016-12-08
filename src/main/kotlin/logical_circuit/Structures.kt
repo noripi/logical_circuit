@@ -26,8 +26,26 @@ abstract class Data<out T>(vararg private val output: T) {
     }
 }
 
-class Single<T>(first: T) : Data<T>(first)
-class Twins<T>(first: T, second: T) : Data<T>(first, second)
-class Triplets<T>(first: T, second: T, third: T) : Data<T>(first, second, third)
-class Quadruplets<T>(first: T, second: T, third: T, fourth: T) : Data<T>(first, second, third,
-        fourth)
+class Single<out T>(private val first: T) : Data<T>(first) {
+    operator fun component1(): T = this.first
+}
+
+class Twins<out T>(private val first: T, private val second: T) : Data<T>(first, second) {
+    operator fun component1(): T = this.first
+    operator fun component2(): T = this.second
+}
+
+class Triplets<out T>(private val first: T, private val second: T,
+                      private val third: T) : Data<T>(first, second, third) {
+    operator fun component1(): T = this.first
+    operator fun component2(): T = this.second
+    operator fun component3(): T = this.third
+}
+
+class Quadruplets<out T>(private val first: T, private val second: T, private val third: T,
+                         private val fourth: T) : Data<T>(first, second, third, fourth) {
+    operator fun component1(): T = this.first
+    operator fun component2(): T = this.second
+    operator fun component3(): T = this.third
+    operator fun component4(): T = this.fourth
+}

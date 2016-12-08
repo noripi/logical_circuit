@@ -1,8 +1,5 @@
 package main
 
-import logical_circuit.Const
-import logical_circuit.FullAdder
-
 /**
  * Copyright (C) 2016 Retty, Inc.
  *
@@ -21,13 +18,13 @@ import logical_circuit.FullAdder
  */
 
 fun main(args: Array<String>) {
-    println("FullAdder(0, 0, 0) = " + FullAdder(Const.ZERO, Const.ZERO, Const.ZERO))
-    println("FullAdder(0, 0, 1) = " + FullAdder(Const.ZERO, Const.ZERO, Const.ONE))
-    println("FullAdder(0, 1, 0) = " + FullAdder(Const.ZERO, Const.ONE, Const.ZERO))
-    println("FullAdder(0, 1, 1) = " + FullAdder(Const.ZERO, Const.ONE, Const.ONE))
-    println("FullAdder(1, 0, 0) = " + FullAdder(Const.ONE, Const.ZERO, Const.ZERO))
-    println("FullAdder(1, 0, 1) = " + FullAdder(Const.ONE, Const.ZERO, Const.ONE))
-    println("FullAdder(1, 1, 0) = " + FullAdder(Const.ONE, Const.ONE, Const.ZERO))
-    println("FullAdder(1, 1, 1) = " + FullAdder(Const.ONE, Const.ONE, Const.ONE))
+    //    println("FullAdder(0, 0, 0) = " + FullAdder(Const.ZERO, Const.ZERO, Const.ZERO))
+    //    println("FullAdder(0, 0, 1) = " + FullAdder(Const.ZERO, Const.ZERO, Const.ONE))
+    //    println("FullAdder(0, 1, 0) = " + FullAdder(Const.ZERO, Const.ONE, Const.ZERO))
+    //    println("FullAdder(0, 1, 1) = " + FullAdder(Const.ZERO, Const.ONE, Const.ONE))
+    //    println("FullAdder(1, 0, 0) = " + FullAdder(Const.ONE, Const.ZERO, Const.ZERO))
+    //    println("FullAdder(1, 0, 1) = " + FullAdder(Const.ONE, Const.ZERO, Const.ONE))
+    //    println("FullAdder(1, 1, 0) = " + FullAdder(Const.ONE, Const.ONE, Const.ZERO))
+    //    println("FullAdder(1, 1, 1) = " + FullAdder(Const.ONE, Const.ONE, Const.ONE))
 }
 
