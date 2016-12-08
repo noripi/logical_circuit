@@ -1,7 +1,7 @@
 package main
 
-import logical_circuit.FullAdder
-import logical_circuit.Value
+import logical_circuit.FourBitAdder
+import logical_circuit.Quadruplets
 
 /**
  * Copyright (C) 2016 Retty, Inc.
@@ -21,11 +21,28 @@ import logical_circuit.Value
  */
 
 fun main(args: Array<String>) {
-    for (i: Int in 0..1) {
-        for (j: Int in 0..1) {
-            for (k: Int in 0..1) {
-                println("FullAdder($i, $j, $k) = " + FullAdder(Value.valueOf(i),
-                        Value.valueOf(j), Value.valueOf(k)).outputs)
+    for (i1: Int in 0..1) {
+        for (i2: Int in 0..1) {
+            for (i3: Int in 0..1) {
+                for (i4: Int in 0..1) {
+                    for (j1: Int in 0..1) {
+                        for (j2: Int in 0..1) {
+                            for (j3: Int in 0..1) {
+                                for (j4: Int in 0..1) {
+                                    val i = i1 * 1 + i2 * 2 + i3 * 4 + i4 * 8
+                                    val j = j1 * 1 + j2 * 2 + j3 * 4 + j4 * 8
+                                    println("FourBitAdder($i, $j) = " +
+                                            FourBitAdder(
+                                                    Quadruplets(i1.toValue(), i2.toValue(),
+                                                            i3.toValue(), i4.toValue()),
+                                                    Quadruplets(j1.toValue(), j2.toValue(),
+                                                            j3.toValue(), j4.toValue()))
+                                                    .outputs.toReversedString())
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }

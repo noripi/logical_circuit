@@ -18,11 +18,15 @@ package logical_circuit
 
 abstract class Data<out T>(vararg private val output: T) {
     override fun toString(): String {
-        return this.output.map { it.toString() }.joinToString(", ")
+        return this.output.map { it.toString() }.joinToString("")
     }
 
     operator fun get(idx: Int): T {
         return this.output[idx]
+    }
+
+    fun toReversedString(): String {
+        return this.output.reversed().map { it.toString() }.joinToString("")
     }
 }
 
@@ -49,3 +53,5 @@ class Quadruplets<out T>(private val first: T, private val second: T, private va
     operator fun component3(): T = this.third
     operator fun component4(): T = this.fourth
 }
+
+

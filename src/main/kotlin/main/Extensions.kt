@@ -16,6 +16,12 @@
  */
 package main
 
+import logical_circuit.Value
+
 fun Boolean.toInt(): Int {
     return if (this) 1 else 0
+}
+
+fun Int.toValue(): Value {
+    return Value.valueOf(this)
 }

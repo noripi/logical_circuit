@@ -24,8 +24,8 @@ package logical_circuit
  */
 class HalfAdder(inputA: Circuit, inputB: Circuit) : Circuit {
     override val outputs: Data<Circuit> = Twins(
-            And(inputA, inputB).output,
-            Xor(inputA, inputB).output
+            Xor(inputA, inputB).output,
+            And(inputA, inputB).output
     )
 }
 
@@ -41,11 +41,48 @@ class HalfAdder(inputA: Circuit, inputB: Circuit) : Circuit {
  * 1 1 1 -> 1 1
  */
 class FullAdder(inputA: Circuit, inputB: Circuit, x: Circuit) : Circuit {
-    override val outputs: Data<Circuit> = HalfAdder(inputA, inputB).outputs.let let1@ {
-        val (carry1, sum1) = it as Twins
-        return@let1 HalfAdder(sum1, x).outputs.let let2@ {
-            val (carry2, sum2) = it as Twins
-            return@let2 Twins(Or(carry1, carry2).output, sum2)
-        }
-    }
+    override val outputs: Data<Circuit> = HalfAdder(inputA, inputB).outputs
+            .let {
+                val (sum1, carry1) = it as Twins; HalfAdder(sum1, x).outputs
+                    .let {
+                        val (sum2, carry2) = it as Twins; Twins(sum2, Or(carry1, carry2).output)
+                    }
+            }
+}
+
+class TwoBitAdder(inputA: Twins<Circuit>, inputB: Twins<Circuit>) : Circuit {
+    override val outputs: Data<Circuit> = FullAdder(inputA[0], inputB[0], Value.Zero).outputs
+            .let {
+                val (sum0, carry0) = it as Twins
+                Twins(sum0, FullAdder(inputA[1], inputB[1], carry0).output)
+            }
+}
+
+class ThreeBitAdder(inputA: Triplets<Circuit>, inputB: Triplets<Circuit>) : Circuit {
+    override val outputs: Data<Circuit> = FullAdder(inputA[0], inputB[0], Value.Zero).outputs
+            .let {
+                val (sum0, carry0) = it as Twins
+                FullAdder(inputA[1], inputB[1], carry0).outputs
+                        .let {
+                            val (sum1, carry1) = it as Twins
+                            Triplets(sum0, sum1, FullAdder(inputA[2], inputB[2], carry1).output)
+                        }
+            }
+}
+
+class FourBitAdder(inputA: Quadruplets<Circuit>, inputB: Quadruplets<Circuit>) : Circuit {
+    override val outputs: Data<Circuit> = FullAdder(inputA[0], inputB[0], Value.Zero).outputs
+            .let {
+                val (sum0, carry0) = it as Twins
+                FullAdder(inputA[1], inputB[1], carry0).outputs
+                        .let {
+                            val (sum1, carry1) = it as Twins
+                            FullAdder(inputA[2], inputB[2], carry1).outputs
+                                    .let {
+                                        val (sum2, carry2) = it as Twins
+                                        Quadruplets(sum0, sum1, sum2,
+                                                FullAdder(inputA[3], inputB[3], carry2).output)
+                                    }
+                        }
+            }
 }
