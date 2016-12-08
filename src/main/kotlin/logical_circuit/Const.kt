@@ -16,20 +16,6 @@
  */
 package logical_circuit
 
-import main.toInt
-
-enum class Value(val value: Boolean) {
-    Zero(false), One(true), ;
-
-    override fun toString(): String {
-        return this.value.toInt().toString();
-    }
-}
-
-interface Circuit {
-    val output: Value
-}
-
 class Const(override val output: Value) : Circuit {
     companion object {
         val ONE = Const(Value.One)
@@ -38,14 +24,3 @@ class Const(override val output: Value) : Circuit {
 
     override fun toString(): String = this.output.toString()
 }
-
-class Nand(private val inputA: Circuit, private val inputB: Circuit) : Circuit {
-    override val output: Value = if (this.inputA.output.value && this.inputB.output.value) Value.Zero else Value.One
-}
-
-class Not(input: Circuit) : Circuit by Nand(input, input)
-class And(inputA: Circuit, inputB: Circuit) : Circuit by Not(Nand(inputA, inputB))
-class Nor(inputA: Circuit, inputB: Circuit) : Circuit by And(Not(inputA), Not(inputB))
-class Or(inputA: Circuit, inputB: Circuit) : Circuit by Not(Nor(inputA, inputB))
-class Xor(inputA: Circuit, inputB: Circuit) : Circuit by Not(Or(Nor(inputA, inputB),
-        And(inputA, inputB)))
