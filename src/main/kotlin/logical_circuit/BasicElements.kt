@@ -23,7 +23,7 @@ package logical_circuit
  * 1 1 -> 0
  */
 class Nand(private val inputA: Circuit, private val inputB: Circuit) : Circuit {
-    override val outputs: Data<Circuit> = let {
+    override val outputs: Tuple<Circuit> = let {
         var outputA: Circuit = this.inputA
         while (outputA !is Constant) outputA = outputA.output
 

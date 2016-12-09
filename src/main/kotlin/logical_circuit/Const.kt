@@ -29,7 +29,7 @@ enum class Value(val value: Boolean) : Circuit, Constant {
         }
     }
 
-    override val outputs: Data<Circuit>
+    override val outputs: Tuple<Circuit>
         get() = Single(this)
 
     override fun toString(): String = this.value.toInt().toString()

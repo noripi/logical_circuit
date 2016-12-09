@@ -17,7 +17,7 @@
 package logical_circuit
 
 interface Circuit {
-    val outputs: Data<Circuit>
+    val outputs: Tuple<Circuit>
 
     val output: Circuit
         get() = this.outputs[0]

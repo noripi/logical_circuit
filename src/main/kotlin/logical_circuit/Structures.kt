@@ -16,7 +16,7 @@
  */
 package logical_circuit
 
-abstract class Data<out T>(vararg private val output: T) {
+abstract class Tuple<out T>(vararg private val output: T) {
     override fun toString(): String {
         return this.output.map { it.toString() }.joinToString("")
     }
@@ -30,24 +30,24 @@ abstract class Data<out T>(vararg private val output: T) {
     }
 }
 
-class Single<out T>(private val first: T) : Data<T>(first) {
+class Single<out T>(private val first: T) : Tuple<T>(first) {
     operator fun component1(): T = this.first
 }
 
-class Twins<out T>(private val first: T, private val second: T) : Data<T>(first, second) {
+class Twins<out T>(private val first: T, private val second: T) : Tuple<T>(first, second) {
     operator fun component1(): T = this.first
     operator fun component2(): T = this.second
 }
 
 class Triplets<out T>(private val first: T, private val second: T,
-                      private val third: T) : Data<T>(first, second, third) {
+                      private val third: T) : Tuple<T>(first, second, third) {
     operator fun component1(): T = this.first
     operator fun component2(): T = this.second
     operator fun component3(): T = this.third
 }
 
 class Quadruplets<out T>(private val first: T, private val second: T, private val third: T,
-                         private val fourth: T) : Data<T>(first, second, third, fourth) {
+                         private val fourth: T) : Tuple<T>(first, second, third, fourth) {
     operator fun component1(): T = this.first
     operator fun component2(): T = this.second
     operator fun component3(): T = this.third
@@ -56,7 +56,7 @@ class Quadruplets<out T>(private val first: T, private val second: T, private va
 
 class Septuplets<out T>(private val first: T, private val second: T, private val third: T,
                         private val fourth: T, private val fifth: T, private val sixth: T,
-                        private val seventh: T) : Data<T>(first, second, third, fourth, fifth,
+                        private val seventh: T) : Tuple<T>(first, second, third, fourth, fifth,
         sixth, seventh) {
     operator fun component1(): T = this.first
     operator fun component2(): T = this.second

@@ -3,7 +3,7 @@ package main
 import display.NumericCharacter
 import display.SevenSegmentDisplay
 import logical_circuit.Circuit
-import logical_circuit.Data
+import logical_circuit.Tuple
 import logical_circuit.FourBitAdder
 import logical_circuit.Quadruplets
 import java.io.BufferedReader
@@ -72,7 +72,7 @@ fun main(args: Array<String>) {
                 println("operand1 is beyond range"); return@forEach
             }
 
-            val result: Data<Circuit> = FourBitAdder(operand0, operand1).outputs
+            val result: Tuple<Circuit> = FourBitAdder(operand0, operand1).outputs
             println(operand0.toReversedString() + "+" + operand1.toReversedString() + "=" + result.toReversedString())
             SevenSegmentDisplay.println(
                     *NumericCharacter(result as Quadruplets<Circuit>).toTypedArray())

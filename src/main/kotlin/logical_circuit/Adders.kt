@@ -23,7 +23,7 @@ package logical_circuit
  * 1 1 -> 1 0
  */
 class HalfAdder(inputA: Circuit, inputB: Circuit) : Circuit {
-    override val outputs: Data<Circuit> = Twins(
+    override val outputs: Tuple<Circuit> = Twins(
             Xor(inputA, inputB).output,
             And(inputA, inputB).output
     )
@@ -41,7 +41,7 @@ class HalfAdder(inputA: Circuit, inputB: Circuit) : Circuit {
  * 1 1 1 -> 1 1
  */
 class FullAdder(inputA: Circuit, inputB: Circuit, x: Circuit) : Circuit {
-    override val outputs: Data<Circuit> = HalfAdder(inputA, inputB).outputs
+    override val outputs: Tuple<Circuit> = HalfAdder(inputA, inputB).outputs
             .let {
                 val (sum1, carry1) = it as Twins; HalfAdder(sum1, x).outputs
                     .let {
@@ -51,7 +51,7 @@ class FullAdder(inputA: Circuit, inputB: Circuit, x: Circuit) : Circuit {
 }
 
 class TwoBitAdder(inputA: Twins<Circuit>, inputB: Twins<Circuit>) : Circuit {
-    override val outputs: Data<Circuit> = FullAdder(inputA[0], inputB[0], Value.Zero).outputs
+    override val outputs: Tuple<Circuit> = FullAdder(inputA[0], inputB[0], Value.Zero).outputs
             .let {
                 val (sum0, carry0) = it as Twins
                 Twins(sum0, FullAdder(inputA[1], inputB[1], carry0).output)
@@ -59,7 +59,7 @@ class TwoBitAdder(inputA: Twins<Circuit>, inputB: Twins<Circuit>) : Circuit {
 }
 
 class ThreeBitAdder(inputA: Triplets<Circuit>, inputB: Triplets<Circuit>) : Circuit {
-    override val outputs: Data<Circuit> = FullAdder(inputA[0], inputB[0], Value.Zero).outputs
+    override val outputs: Tuple<Circuit> = FullAdder(inputA[0], inputB[0], Value.Zero).outputs
             .let {
                 val (sum0, carry0) = it as Twins
                 FullAdder(inputA[1], inputB[1], carry0).outputs
@@ -71,7 +71,7 @@ class ThreeBitAdder(inputA: Triplets<Circuit>, inputB: Triplets<Circuit>) : Circ
 }
 
 class FourBitAdder(inputA: Quadruplets<Circuit>, inputB: Quadruplets<Circuit>) : Circuit {
-    override val outputs: Data<Circuit> = FullAdder(inputA[0], inputB[0], Value.Zero).outputs
+    override val outputs: Tuple<Circuit> = FullAdder(inputA[0], inputB[0], Value.Zero).outputs
             .let {
                 val (sum0, carry0) = it as Twins
                 FullAdder(inputA[1], inputB[1], carry0).outputs
