@@ -23,20 +23,19 @@ package logical_circuit
  * 1 1 -> 0
  */
 class Nand(private val inputA: Circuit, private val inputB: Circuit) : Circuit {
-    override val outputs: Data<Circuit>
-        get() {
-            var outputA: Circuit = this.inputA
-            while (outputA !is Constant) outputA = outputA.output
+    override val outputs: Data<Circuit> = let {
+        var outputA: Circuit = this.inputA
+        while (outputA !is Constant) outputA = outputA.output
 
-            var outputB: Circuit = this.inputB
-            while (outputB !is Constant) outputB = outputB.output
+        var outputB: Circuit = this.inputB
+        while (outputB !is Constant) outputB = outputB.output
 
-            return if (outputA == Value.One && outputB == Value.One) {
-                Single(Value.Zero)
-            } else {
-                Single(Value.One)
-            }
+        if (outputA == Value.One && outputB == Value.One) {
+            Single(Value.Zero)
+        } else {
+            Single(Value.One)
         }
+    }
 }
 
 /**
