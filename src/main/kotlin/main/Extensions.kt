@@ -20,19 +20,18 @@ import logical_circuit.And
 import logical_circuit.Circuit
 import logical_circuit.Not
 import logical_circuit.Or
+import logical_circuit.Quadruplets
 import logical_circuit.Value
 
-fun Boolean.toInt(): Int {
-    return if (this) 1 else 0
-}
+fun Boolean.toInt(): Int = if (this) 1 else 0
 
-fun Int.toValue(): Value {
-    return Value.valueOf(this)
-}
+fun Int.toValue(): Value = Value.valueOf(this)
+
+fun List<Int>.toQuadruplets(): Quadruplets<Circuit> = if (this.size < 4) throw IllegalArgumentException() else Quadruplets(
+        this[0].toValue(), this[1].toValue(), this[2].toValue(), this[3].toValue())
 
 operator fun Circuit.plus(c: Circuit) = Or(this, c)
 
 operator fun Circuit.times(c: Circuit) = And(this, c)
 
 operator fun Circuit.not() = Not(this)
-
