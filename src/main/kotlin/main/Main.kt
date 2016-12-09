@@ -47,7 +47,7 @@ private val BINARY: Map<Int, Quadruplets<Circuit>> = mapOf(
 )
 
 fun main(args: Array<String>) {
-    println("this program supports -8 ~ 7 Integer number and '+' operator")
+    println("this program supports -8 ~ 7 Integer number and '+/-' operator")
 
     val pattern: Pattern = "(-?\\d+)\\s*\\+\\s*(-?\\d+)".toPattern()
 
@@ -55,7 +55,8 @@ fun main(args: Array<String>) {
         while (true) {
             print("> ")
 
-            val input: String = it.readLine()
+            val input: String = it.readLine().replace("(-?\\d+)\\s*-\\s*(\\d+)".toRegex(), "$1+-$2")
+
             val matcher: Matcher = pattern.matcher(input)
             if (!matcher.matches()) {
                 println("illegal format")
