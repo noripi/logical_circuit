@@ -3,6 +3,7 @@ package main
 import display.NumericCharacter
 import display.SevenSegmentDisplay
 import logical_circuit.Circuit
+import logical_circuit.Data
 import logical_circuit.FourBitAdder
 import logical_circuit.Quadruplets
 import java.io.BufferedReader
@@ -51,31 +52,40 @@ fun main(args: Array<String>) {
 
     val pattern: Pattern = "(-?\\d+)\\s*\\+\\s*(-?\\d+)".toPattern()
 
-    BufferedReader(InputStreamReader(System.`in`, Charsets.UTF_8)).use {
-        while (true) {
+    BufferedReader(InputStreamReader(System.`in`, Charsets.UTF_8)).use { reader ->
+        InfiniteIntList(0).forEach {
             print("> ")
 
-            val input: String = it.readLine().replace("(-?\\d+)\\s*-\\s*(\\d+)".toRegex(), "$1+-$2")
+            val input: String = reader.readLine().replace("(-?\\d+)\\s*-\\s*(\\d+)".toRegex(),
+                    "$1+-$2")
 
             val matcher: Matcher = pattern.matcher(input)
             if (!matcher.matches()) {
                 println("illegal format")
-                continue
+                return@forEach
             }
 
-            val operand0: Int = matcher.group(1).toInt()
-            val operand1: Int = matcher.group(2).toInt()
-
-            if (operand0 !in -8..7 || operand1 !in -8..7) {
-                println("operand is beyond acceptable range")
+            val operand0: Quadruplets<Circuit> = BINARY[matcher.group(1).toInt()] ?: run {
+                println("operand0 is beyond range"); return@forEach
+            }
+            val operand1: Quadruplets<Circuit> = BINARY[matcher.group(2).toInt()] ?: run {
+                println("operand1 is beyond range"); return@forEach
             }
 
-            println(BINARY[operand0]!!.toReversedString() + "+" + BINARY[operand1]!!.toReversedString() + "=")
+            val result: Data<Circuit> = FourBitAdder(operand0, operand1).outputs
+            println(operand0.toReversedString() + "+" + operand1.toReversedString() + "=" + result.toReversedString())
             SevenSegmentDisplay.println(
-                    *NumericCharacter(FourBitAdder(BINARY[operand0]!!,
-                            BINARY[operand1]!!).outputs as Quadruplets<Circuit>).toTypedArray())
+                    *NumericCharacter(result as Quadruplets<Circuit>).toTypedArray())
         }
     }
+}
 
+class InfiniteIntList(private val value: Int) : Iterable<Int> {
+    override fun iterator(): Iterator<Int> {
+        return object : Iterator<Int> {
+            override fun hasNext(): Boolean = true
+            override fun next(): Int = this@InfiniteIntList.value
+        }
+    }
 }
 
