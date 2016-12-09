@@ -16,6 +16,10 @@
  */
 package main
 
+import logical_circuit.And
+import logical_circuit.Circuit
+import logical_circuit.Not
+import logical_circuit.Or
 import logical_circuit.Value
 
 fun Boolean.toInt(): Int {
@@ -25,3 +29,10 @@ fun Boolean.toInt(): Int {
 fun Int.toValue(): Value {
     return Value.valueOf(this)
 }
+
+operator fun Circuit.plus(c: Circuit) = Or(this, c)
+
+operator fun Circuit.times(c: Circuit) = And(this, c)
+
+operator fun Circuit.not() = Not(this)
+

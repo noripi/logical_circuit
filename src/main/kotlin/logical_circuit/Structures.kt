@@ -54,4 +54,16 @@ class Quadruplets<out T>(private val first: T, private val second: T, private va
     operator fun component4(): T = this.fourth
 }
 
+class Septuplets<out T>(private val first: T, private val second: T, private val third: T,
+                        private val fourth: T, private val fifth: T, private val sixth: T,
+                        private val seventh: T) : Data<T>(first, second, third, fourth, fifth,
+        sixth, seventh) {
+    operator fun component1(): T = this.first
+    operator fun component2(): T = this.second
+    operator fun component3(): T = this.third
+    operator fun component4(): T = this.fourth
+    operator fun component5(): T = this.fifth
+    operator fun component6(): T = this.sixth
+    operator fun component7(): T = this.seventh
+}
 

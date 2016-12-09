@@ -1,6 +1,7 @@
 package main
 
-import logical_circuit.FourBitAdder
+import display.NumericCharacter
+import display.SevenSegmentDisplay
 import logical_circuit.Quadruplets
 
 /**
@@ -25,23 +26,10 @@ fun main(args: Array<String>) {
         for (i2: Int in 0..1) {
             for (i3: Int in 0..1) {
                 for (i4: Int in 0..1) {
-                    for (j1: Int in 0..1) {
-                        for (j2: Int in 0..1) {
-                            for (j3: Int in 0..1) {
-                                for (j4: Int in 0..1) {
-                                    val i = i1 * 1 + i2 * 2 + i3 * 4 + i4 * 8
-                                    val j = j1 * 1 + j2 * 2 + j3 * 4 + j4 * 8
-                                    println("FourBitAdder($i, $j) = " +
-                                            FourBitAdder(
-                                                    Quadruplets(i1.toValue(), i2.toValue(),
-                                                            i3.toValue(), i4.toValue()),
-                                                    Quadruplets(j1.toValue(), j2.toValue(),
-                                                            j3.toValue(), j4.toValue()))
-                                                    .outputs.toReversedString())
-                                }
-                            }
-                        }
-                    }
+                    println("$i1$i2$i3$i4:")
+                    SevenSegmentDisplay.println(*NumericCharacter(
+                            Quadruplets(i4.toValue(), i3.toValue(), i2.toValue(),
+                                    i1.toValue())).toTypedArray())
                 }
             }
         }

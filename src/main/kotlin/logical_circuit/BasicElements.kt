@@ -53,7 +53,6 @@ class Not(input: Circuit) : Circuit by Nand(input, input)
  */
 class And(inputA: Circuit, inputB: Circuit) : Circuit by Not(Nand(inputA, inputB))
 
-
 /**
  * 0 0 -> 1
  * 0 1 -> 0

@@ -30,7 +30,7 @@ enum class Value(val value: Boolean) : Circuit, Constant {
     }
 
     override val outputs: Data<Circuit>
-        get() = throw UnsupportedOperationException()
+        get() = Single(this)
 
     override fun toString(): String = this.value.toInt().toString()
 }
